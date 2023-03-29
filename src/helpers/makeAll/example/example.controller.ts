@@ -13,7 +13,7 @@ import { UpdateExampleDto } from './dto/update-example.dto';
 import { ExampleService } from './example.service';
 
 @ApiTags('Example')
-@Controller('example')
+// @Controller
 export class ExampleController {
   constructor(private readonly exampleService: ExampleService) {}
 

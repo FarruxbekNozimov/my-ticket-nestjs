@@ -1,33 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Customer } from './models/customer.entity';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { Customer } from './models/customer.model';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Injectable()
 export class CustomerService {
   constructor(@InjectModel(Customer) private customerRepo: typeof Customer) {}
 
   async create(createCustomerDto: CreateCustomerDto) {
-    return await this.customerRepo.create(createCustomerDto);
+    const res = await this.customerRepo.create(createCustomerDto);
+    return res;
   }
 
-  async getAll() {
-    return await this.customerRepo.findAll({
-      include: { all: true },
-    });
+  async findAll() {
+    return await this.customerRepo.findAll({ include: { all: true } });
   }
 
   async findOne(id: number) {
-    const Customer = await this.customerRepo.findOne(id);
-    return Customer;
+    return await this.customerRepo.findByPk(id);
   }
 
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    const Customer = await this.customerRepo.update(updateCustomerDto, {
-      where: { id },
-    });
-    return Customer;
+    return await this.customerRepo.update(updateCustomerDto, { where: { id } });
   }
 
   async delete(id: number): Promise<number> {

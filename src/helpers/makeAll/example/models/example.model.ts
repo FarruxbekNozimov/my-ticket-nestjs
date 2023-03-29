@@ -14,5 +14,8 @@ interface ExampleAttr {
 
 @Table
 export class Example extends Model<Example, ExampleAttr> {
+  @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
+  id: number;
+
   'column'
 }

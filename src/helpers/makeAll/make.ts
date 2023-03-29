@@ -12,8 +12,9 @@ function makeFiles(
 ) {
   createDto =
     Object.keys(createDto).length === 0
-      ? createDto
-      : Object.fromEntries(Object.entries(columns).map((i) => [i[0], i[1][0]]));
+      ? Object.fromEntries(Object.entries(columns).map((i) => [i[0], i[1][0]]))
+      : createDto;
+
   // ALL FUNCTIONS
   let mkDir = path.resolve(__dirname, '..', '..', folderName);
   let readFromExample = (name: string) => {
@@ -35,10 +36,9 @@ function makeFiles(
       }
     }
     content = splitContent.join('\n');
-    console.log(content.replace(/@/, `@Table({ tableName: '${name}' })`));
     content = content
-      .replace(/@Table/, `@Table({ tableName: '${name}' })`)
-      .replace(/@Controller('example')/, `@Controller('${name}')`)
+      .replace(/@Table/, `@Table({ tableName: '${folderName}' })`)
+      .replace(/@Controller/, `@Controller('${folderName}')`)
       .replace(/example/g, name[0].toLowerCase() + name.slice(1, name.length))
       .replace(/Example/g, name);
     return content;
@@ -67,7 +67,7 @@ function makeFiles(
           /_/g,
           '-',
         )}/models/${hasMany[j].replace(/_/g, '-')}.model';\n`;
-        hasManies += `@HasMany(() => ${j})\n\t${hasMany[j]}: ${j}[];\n`;
+        hasManies += `@HasMany(() => ${j})\n\t${hasMany[j]}: ${j}[];\n\n\t`;
       }
     }
     content = hasManyImports + content;
@@ -86,7 +86,7 @@ function makeFiles(
 
   let writeUpdateDto = (content: string) => {
     let propsArea: string = '';
-    let dto = updateDto || createDto;
+    let dto = Object.keys(updateDto).length === 0 ? updateDto : createDto;
     for (let i in dto) {
       propsArea += `${i}?: ${dto[i]};\n\t`;
     }
@@ -182,33 +182,71 @@ function makeFiles(
   }
 }
 
+// CUSTOMER
+makeFiles(
+  'customer',
+  'Customer',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+    first_name: ['string', '{ type: DataType.STRING }'],
+    last_name: ['string', '{ type: DataType.STRING }'],
+    phone: ['string', '{ type: DataType.STRING }'],
+    hashed_password: ['string', '{ type: DataType.STRING }'],
+    email: ['string', '{ type: DataType.STRING }'],
+    birth_date: ['string', '{ type: DataType.STRING }'],
+    gender: ['string', '{ type: DataType.STRING }'],
+    lang_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Lang', column: 'lang' },
+    ],
+    hashed_refresh_token: ['string', '{ type: DataType.STRING }'],
+  },
+  {
+    CustomerCard: 'customer_card',
+    CustomerAddress: 'customer_address',
+    Cart: 'cart',
+  },
+);
+
 // VENUE
-makeFiles('venue', 'Venue', {
-  id: [
-    'number',
-    '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-  ],
-  name: ['string', '{ type: DataType.STRING }'],
-  address: ['string', '{ type: DataType.STRING }'],
-  location: ['string', '{ type: DataType.STRING }'],
-  site: ['string', '{ type: DataType.STRING }'],
-  phone: ['string', '{ type: DataType.STRING }'],
-  venue_type_id: [
+makeFiles(
+  'venue',
+  'Venue',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+    address: ['string', '{ type: DataType.STRING }'],
+    location: ['string', '{ type: DataType.STRING }'],
+    site: ['string', '{ type: DataType.STRING }'],
+    phone: ['string', '{ type: DataType.STRING }'],
+    venue_type_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'VenueType', column: 'venue_type' },
+    ],
+    schema: ['string', '{ type: DataType.STRING }'],
+    region_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Region', column: 'region' },
+    ],
+    district_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'District', column: 'district' },
+    ],
+  },
+  { VenuePhoto: 'venue_photo', Seat: 'seat', Event: 'event' },
+);
+
+// VENUE PHOTO
+makeFiles('venue-photo', 'VenuePhoto', {
+  venue_id: [
     'number',
     '{ type: DataType.INTEGER }',
-    { name: 'VenueType', column: 'venue_type' },
+    { name: 'Venue', column: 'venue' },
   ],
-  schema: ['string', '{ type: DataType.STRING }'],
-  region_id: [
-    'number',
-    '{ type: DataType.INTEGER }',
-    { name: 'Region', column: 'region' },
-  ],
-  district_id: [
-    'number',
-    '{ type: DataType.INTEGER }',
-    { name: 'District', column: 'district' },
-  ],
+  url: ['string', '{ type: DataType.STRING }'],
 });
 
 // DISTRICT
@@ -216,13 +254,9 @@ makeFiles(
   'district',
   'District',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
-  { Venue: 'venue' },
+  { Venue: 'venue', CustomerAddress: 'customer_address' },
 );
 
 // REGION
@@ -230,13 +264,9 @@ makeFiles(
   'region',
   'Region',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
-  { Venue: 'venue' },
+  { Venue: 'venue', CustomerAddress: 'customer_address' },
 );
 
 // SEAT TYPE
@@ -244,10 +274,6 @@ makeFiles(
   'seat-type',
   'SeatType',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
   { Seat: 'seat' },
@@ -258,10 +284,6 @@ makeFiles(
   'seat',
   'Seat',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     sector: ['number', '{ type: DataType.INTEGER }'],
     row_number: ['number', '{ type: DataType.INTEGER }'],
     venue_id: [
@@ -284,10 +306,6 @@ makeFiles(
   'ticket',
   'Ticket',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     event_id: [
       'number',
       '{ type: DataType.INTEGER }',
@@ -300,7 +318,11 @@ makeFiles(
     ],
     price: ['number', '{ type: DataType.INTEGER }'],
     service_free: ['number', '{ type: DataType.INTEGER }'],
-    status: ['number', '{ type: DataType.INTEGER }'],
+    status_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Status', column: 'status' },
+    ],
     ticket_type: ['number', '{ type: DataType.INTEGER }'],
   },
   { Cart: 'cart' },
@@ -311,10 +333,6 @@ makeFiles(
   'cart',
   'Cart',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     ticket_id: [
       'number',
       '{ type: DataType.INTEGER }',
@@ -336,10 +354,6 @@ makeFiles(
 
 // BOOKING
 makeFiles('booking', 'Booking', {
-  id: [
-    'number',
-    '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-  ],
   cart_id: [
     'number',
     '{ type: DataType.INTEGER }',
@@ -372,13 +386,9 @@ makeFiles(
   'payment-method',
   'PaymentMethod',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
-  { Booking: 'booking', Cart: 'cart', Ticket: 'ticket' },
+  { Booking: 'booking' },
 );
 
 // DELIVERY METHOD
@@ -386,10 +396,6 @@ makeFiles(
   'delivery-method',
   'DeliveryMethod',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
   { Booking: 'booking' },
@@ -400,10 +406,6 @@ makeFiles(
   'discount-coupon',
   'DiscountCoupon',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
   { Booking: 'booking' },
@@ -414,10 +416,6 @@ makeFiles(
   'event',
   'Event',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
     photo: ['string', '{ type: DataType.STRING }'],
     start_date: ['Date', '{ type: DataType.DATE }'],
@@ -428,12 +426,12 @@ makeFiles(
     event_type_id: [
       'number',
       '{ type: DataType.INTEGER }',
-      { name: 'EventType', column: 'eventType' },
+      { name: 'EventType', column: 'event_type' },
     ],
     human_category_id: [
       'number',
       '{ type: DataType.INTEGER }',
-      { name: 'HumanCategory', column: 'human' },
+      { name: 'HumanCategory', column: 'human_category' },
     ],
     venue_id: [
       'number',
@@ -445,11 +443,7 @@ makeFiles(
       '{ type: DataType.INTEGER }',
       { name: 'Lang', column: 'lang' },
     ],
-    release_date: [
-      'number',
-      '{ type: DataType.INTEGER }',
-      { name: 'ReleaseDate', column: 'release_date' },
-    ],
+    release_date: ['number', '{ type: DataType.INTEGER }'],
   },
   { Ticket: 'ticket' },
 );
@@ -459,10 +453,6 @@ makeFiles(
   'event-type',
   'EventType',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
     parent_event_type_id: [
       'number',
@@ -478,10 +468,6 @@ makeFiles(
   'venue-type',
   'VenueType',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
   },
   { Venue: 'venue' },
@@ -492,13 +478,96 @@ makeFiles(
   'human-category',
   'HumanCategory',
   {
-    id: [
-      'number',
-      '{ type: DataType.INTEGER, autoIncrement: true, primaryKey: true }',
-    ],
     name: ['string', '{ type: DataType.STRING }'],
     start_age: ['number', '{ type: DataType.INTEGER }'],
     finish_age: ['number', '{ type: DataType.INTEGER }'],
   },
-  { Venue: 'venue' },
+  { Event: 'event' },
+);
+
+// LANG
+makeFiles(
+  'lang',
+  'Lang',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+  },
+  { Event: 'event', Customer: 'customer' },
+);
+
+// CUSTOMER CARD
+makeFiles('customer-card', 'CustomerCard', {
+  customer_id: [
+    'number',
+    '{ type: DataType.INTEGER }',
+    { name: 'Customer', column: 'customer' },
+  ],
+  name: ['string', '{ type: DataType.STRING }'],
+  phone: ['string', '{ type: DataType.STRING }'],
+  number: ['string', '{ type: DataType.STRING }'],
+  year: ['string', '{ type: DataType.STRING }'],
+  month: ['string', '{ type: DataType.STRING }'],
+  is_active: ['boolean', '{ type: DataType.BOOLEAN }'],
+  is_main: ['boolean', '{ type: DataType.BOOLEAN }'],
+});
+
+// CUSTOMER ADDRESS
+makeFiles('customer-address', 'CustomerAddress', {
+  customer_id: [
+    'number',
+    '{ type: DataType.INTEGER }',
+    { name: 'Customer', column: 'customer' },
+  ],
+  name: ['string', '{ type: DataType.STRING }'],
+  country_id: [
+    'number',
+    '{ type: DataType.INTEGER }',
+    { name: 'Country', column: 'country' },
+  ],
+  region_id: [
+    'number',
+    '{ type: DataType.INTEGER }',
+    { name: 'Region', column: 'region' },
+  ],
+  district_id: [
+    'number',
+    '{ type: DataType.INTEGER }',
+    { name: 'District', column: 'district' },
+  ],
+  street: ['string', '{ type: DataType.STRING }'],
+  house: ['string', '{ type: DataType.STRING }'],
+  flat: ['number', '{ type: DataType.INTEGER }'],
+  location: ['string', '{ type: DataType.STRING }'],
+  post_index: ['string', '{ type: DataType.STRING }'],
+  info: ['string', '{ type: DataType.STRING }'],
+});
+
+// COUNTRY
+makeFiles(
+  'country',
+  'Country',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+  },
+  { CustomerAddress: 'customer_address' },
+);
+
+// ADMIN
+makeFiles('admin', 'Admin', {
+  name: ['string', '{ type: DataType.STRING }'],
+  login: ['string', '{ type: DataType.STRING }'],
+  hashed_password: ['string', '{ type: DataType.STRING }'],
+  is_active: ['boolean', '{ type: DataType.BOOLEAN }'],
+  is_creator: ['boolean', '{ type: DataType.BOOLEAN }'],
+  hashed_refresh_token: ['string', '{ type: DataType.STRING }'],
+});
+
+// STATUS
+makeFiles(
+  'status',
+  'Status',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+  },
+  { Booking: 'booking', Ticket: 'ticket', Cart: 'cart' },
 );
