@@ -3,6 +3,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
@@ -11,7 +12,7 @@ interface ExampleAttr {
   'attr'
 }
 
-@Table({ tableName: 'example' })
+@Table
 export class Example extends Model<Example, ExampleAttr> {
   'column'
 }
