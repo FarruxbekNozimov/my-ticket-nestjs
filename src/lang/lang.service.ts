@@ -22,7 +22,10 @@ export class LangService {
   }
 
   async update(id: number, updateLangDto: UpdateLangDto) {
-    return await this.langRepo.update(updateLangDto, { where: { id } });
+    return await this.langRepo.update(updateLangDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

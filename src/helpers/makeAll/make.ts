@@ -86,7 +86,7 @@ function makeFiles(
 
   let writeUpdateDto = (content: string) => {
     let propsArea: string = '';
-    let dto = Object.keys(updateDto).length === 0 ? updateDto : createDto;
+    let dto = Object.keys(updateDto).length === 0 ?  createDto :updateDto;
     for (let i in dto) {
       propsArea += `${i}?: ${dto[i]};\n\t`;
     }
@@ -570,4 +570,15 @@ makeFiles(
     name: ['string', '{ type: DataType.STRING }'],
   },
   { Booking: 'booking', Ticket: 'ticket', Cart: 'cart' },
+);
+
+// TICKET TYPE
+makeFiles(
+  'ticket-type',
+  'TicketType',
+  {
+    name: ['string', '{ type: DataType.STRING }'],
+    color: ['string', '{ type: DataType.STRING }'],
+  },
+  { Ticket: 'ticket'},
 );

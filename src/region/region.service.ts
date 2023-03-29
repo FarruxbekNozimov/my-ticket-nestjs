@@ -22,7 +22,10 @@ export class RegionService {
   }
 
   async update(id: number, updateRegionDto: UpdateRegionDto) {
-    return await this.regionRepo.update(updateRegionDto, { where: { id } });
+    return await this.regionRepo.update(updateRegionDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

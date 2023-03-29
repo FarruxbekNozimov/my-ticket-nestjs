@@ -22,7 +22,10 @@ export class TicketService {
   }
 
   async update(id: number, updateTicketDto: UpdateTicketDto) {
-    return await this.ticketRepo.update(updateTicketDto, { where: { id } });
+    return await this.ticketRepo.update(updateTicketDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

@@ -22,7 +22,10 @@ export class VenueService {
   }
 
   async update(id: number, updateVenueDto: UpdateVenueDto) {
-    return await this.venueRepo.update(updateVenueDto, { where: { id } });
+    return await this.venueRepo.update(updateVenueDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

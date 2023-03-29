@@ -22,7 +22,10 @@ export class SeatService {
   }
 
   async update(id: number, updateSeatDto: UpdateSeatDto) {
-    return await this.seatRepo.update(updateSeatDto, { where: { id } });
+    return await this.seatRepo.update(updateSeatDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

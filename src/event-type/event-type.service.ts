@@ -22,7 +22,10 @@ export class EventTypeService {
   }
 
   async update(id: number, updateEventTypeDto: UpdateEventTypeDto) {
-    return await this.eventTypeRepo.update(updateEventTypeDto, { where: { id } });
+    return await this.eventTypeRepo.update(updateEventTypeDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

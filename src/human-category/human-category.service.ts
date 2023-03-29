@@ -22,7 +22,10 @@ export class HumanCategoryService {
   }
 
   async update(id: number, updateHumanCategoryDto: UpdateHumanCategoryDto) {
-    return await this.humanCategoryRepo.update(updateHumanCategoryDto, { where: { id } });
+    return await this.humanCategoryRepo.update(updateHumanCategoryDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

@@ -22,7 +22,10 @@ export class DeliveryMethodService {
   }
 
   async update(id: number, updateDeliveryMethodDto: UpdateDeliveryMethodDto) {
-    return await this.deliveryMethodRepo.update(updateDeliveryMethodDto, { where: { id } });
+    return await this.deliveryMethodRepo.update(updateDeliveryMethodDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

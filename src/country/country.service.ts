@@ -22,7 +22,10 @@ export class CountryService {
   }
 
   async update(id: number, updateCountryDto: UpdateCountryDto) {
-    return await this.countryRepo.update(updateCountryDto, { where: { id } });
+    return await this.countryRepo.update(updateCountryDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

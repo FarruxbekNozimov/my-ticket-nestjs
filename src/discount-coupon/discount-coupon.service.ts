@@ -22,7 +22,10 @@ export class DiscountCouponService {
   }
 
   async update(id: number, updateDiscountCouponDto: UpdateDiscountCouponDto) {
-    return await this.discountCouponRepo.update(updateDiscountCouponDto, { where: { id } });
+    return await this.discountCouponRepo.update(updateDiscountCouponDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

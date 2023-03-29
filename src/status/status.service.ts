@@ -22,7 +22,10 @@ export class StatusService {
   }
 
   async update(id: number, updateStatusDto: UpdateStatusDto) {
-    return await this.statusRepo.update(updateStatusDto, { where: { id } });
+    return await this.statusRepo.update(updateStatusDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

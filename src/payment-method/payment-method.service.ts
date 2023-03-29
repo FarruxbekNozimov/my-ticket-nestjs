@@ -22,7 +22,10 @@ export class PaymentMethodService {
   }
 
   async update(id: number, updatePaymentMethodDto: UpdatePaymentMethodDto) {
-    return await this.paymentMethodRepo.update(updatePaymentMethodDto, { where: { id } });
+    return await this.paymentMethodRepo.update(updatePaymentMethodDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

@@ -22,7 +22,10 @@ export class BookingService {
   }
 
   async update(id: number, updateBookingDto: UpdateBookingDto) {
-    return await this.bookingRepo.update(updateBookingDto, { where: { id } });
+    return await this.bookingRepo.update(updateBookingDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

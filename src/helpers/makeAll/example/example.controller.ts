@@ -19,25 +19,25 @@ export class ExampleController {
 
   @ApiOperation({ summary: 'Create a example' })
   @Post()
-  createComfort(@Body() createExampleDto: CreateExampleDto) {
+  create(@Body() createExampleDto: CreateExampleDto) {
     return this.exampleService.create(createExampleDto);
   }
 
   @ApiOperation({ summary: 'Get all example' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.exampleService.findAll();
   }
 
   @ApiOperation({ summary: 'Get example' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  getById(@Param('id') id: number) {
     return this.exampleService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update example' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateExampleDto: UpdateExampleDto,
   ) {
@@ -46,7 +46,7 @@ export class ExampleController {
 
   @ApiOperation({ summary: 'Delete example' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.exampleService.delete(id);
   }
 }

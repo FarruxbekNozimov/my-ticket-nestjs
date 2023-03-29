@@ -22,7 +22,10 @@ export class VenuePhotoService {
   }
 
   async update(id: number, updateVenuePhotoDto: UpdateVenuePhotoDto) {
-    return await this.venuePhotoRepo.update(updateVenuePhotoDto, { where: { id } });
+    return await this.venuePhotoRepo.update(updateVenuePhotoDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

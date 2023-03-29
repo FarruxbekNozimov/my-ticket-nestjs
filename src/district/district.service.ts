@@ -22,7 +22,10 @@ export class DistrictService {
   }
 
   async update(id: number, updateDistrictDto: UpdateDistrictDto) {
-    return await this.districtRepo.update(updateDistrictDto, { where: { id } });
+    return await this.districtRepo.update(updateDistrictDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

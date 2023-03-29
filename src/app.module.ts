@@ -47,6 +47,8 @@ import { TicketModule } from './ticket/ticket.module';
 import { VenuePhotoModule } from './venue-photo/venue-photo.module';
 import { VenueTypeModule } from './venue-type/venue-type.module';
 import { VenueModule } from './venue/venue.module';
+import { TicketType } from './ticket-type/models/ticket-type.model';
+import { TicketTypeModule } from './ticket-type/ticket-type.module';
 
 @Module({
   imports: [
@@ -85,6 +87,7 @@ import { VenueModule } from './venue/venue.module';
         Venue,
         VenuePhoto,
         VenueType,
+        TicketType
       ],
       autoLoadModels: true,
       logging: false,
@@ -113,6 +116,8 @@ import { VenueModule } from './venue/venue.module';
     VenueModule,
     VenuePhotoModule,
     VenueTypeModule,
+    TicketTypeModule
+
   ],
   controllers: [],
   providers: [],

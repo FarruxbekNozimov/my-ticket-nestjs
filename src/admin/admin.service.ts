@@ -22,7 +22,10 @@ export class AdminService {
   }
 
   async update(id: number, updateAdminDto: UpdateAdminDto) {
-    return await this.adminRepo.update(updateAdminDto, { where: { id } });
+    return await this.adminRepo.update(updateAdminDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

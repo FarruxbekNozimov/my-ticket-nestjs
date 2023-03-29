@@ -22,7 +22,10 @@ export class CustomerAddressService {
   }
 
   async update(id: number, updateCustomerAddressDto: UpdateCustomerAddressDto) {
-    return await this.customerAddressRepo.update(updateCustomerAddressDto, { where: { id } });
+    return await this.customerAddressRepo.update(updateCustomerAddressDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

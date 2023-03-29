@@ -22,7 +22,10 @@ export class ExampleService {
   }
 
   async update(id: number, updateExampleDto: UpdateExampleDto) {
-    return await this.exampleRepo.update(updateExampleDto, { where: { id } });
+    return await this.exampleRepo.update(updateExampleDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {

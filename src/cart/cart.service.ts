@@ -22,7 +22,10 @@ export class CartService {
   }
 
   async update(id: number, updateCartDto: UpdateCartDto) {
-    return await this.cartRepo.update(updateCartDto, { where: { id } });
+    return await this.cartRepo.update(updateCartDto, {
+      where: { id },
+      returning: true,
+    });
   }
 
   async delete(id: number): Promise<number> {
