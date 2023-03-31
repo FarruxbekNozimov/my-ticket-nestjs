@@ -55,55 +55,55 @@ export class AuthService {
     return response;
   }
 
-  // async login(loginDto: LoginDto, res: Response) {
-  //   const { email, password } = loginDto;
-  //   const user = await this.customerService.getUserByEmail(email);
-  //   if (!user) {
-  //     throw new HttpException(`Bunday mavjud emas`, HttpStatus.BAD_REQUEST);
-  //   }
-  //   const isMatchPass = await bcrypt.compare(password, user.hashed_password);
-  //   if (!isMatchPass) {
-  //     throw new UnauthorizedException(`User not registered`);
-  //   }
-  //   const tokens = await this.getToken(user);
+  async login(loginDto: LoginDto, res: Response) {
+    const { email, password } = loginDto;
+    const user = await this.customerService.findOneByEmail(email);
+    if (!user) {
+      throw new HttpException(`Bunday mavjud emas`, HttpStatus.BAD_REQUEST);
+    }
+    const isMatchPass = await bcrypt.compare(password, user.hashed_password);
+    if (!isMatchPass) {
+      throw new UnauthorizedException(`User not registered`);
+    }
+    const tokens = await this.getToken(user);
 
-  //   const hashed_refresh_token = await bcrypt.hash(tokens.refresh_token, 7);
+    const hashed_refresh_token = await bcrypt.hash(tokens.refresh_token, 7);
 
-  //   const updatedUser = await this.customerService.updateUser(user.id, {
-  //     ...user,
-  //     hashed_refresh_token: hashed_refresh_token,
-  //   });
+    const updatedUser = await this.customerService.update(user.id, {
+      ...user,
+      hashed_refresh_token: hashed_refresh_token,
+    });
 
-  //   res.cookie('refresh_token', tokens.refresh_token, {
-  //     maxAge: 15 * 24 * 60 * 60 * 1000,
-  //     httpOnly: true,
-  //   });
+    res.cookie('refresh_token', tokens.refresh_token, {
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
 
-  //   const response = {
-  //     message: 'USER LOGIN',
-  //     user: updatedUser[1][0],
-  //     tokens,
-  //   };
-  //   return response;
-  // }
+    const response = {
+      message: 'USER LOGIN',
+      user: updatedUser[1][0],
+      tokens,
+    };
+    return response;
+  }
 
-  // async logout(refreshToken: string, res: Response) {
-  //   const userData = await this.jwtService.verify(refreshToken, {
-  //     secret: process.env.REFRESH_TOKEN_KEY,
-  //   });
-  //   if (!userData) {
-  //     throw new ForbiddenException('User not found');
-  //   }
-  //   const updatedUser = await this.customerService.updateUser(userData.id, {
-  //     hashed_refresh_token: refreshToken,
-  //   });
-  //   res.clearCookie('refresh_token');
-  //   const response = {
-  //     message: 'User logged out successfully',
-  //     user: updatedUser[1][0],
-  //   };
-  //   return response;
-  // }
+  async logout(refreshToken: string, res: Response) {
+    const userData = await this.jwtService.verify(refreshToken, {
+      secret: process.env.REFRESH_TOKEN_KEY,
+    });
+    if (!userData) {
+      throw new ForbiddenException('User not found');
+    }
+    const updatedUser = await this.customerService.update(userData.id, {
+      hashed_refresh_token: refreshToken,
+    });
+    res.clearCookie('refresh_token');
+    const response = {
+      message: 'User logged out successfully',
+      user: updatedUser[1][0],
+    };
+    return response;
+  }
 
   private async getToken(user: Customer) {
     const payload = { id: user.id };
@@ -139,18 +139,5 @@ export class AuthService {
     const updatedUser = await this.customerService.update(user.id, {
       hashed_refresh_token: hashed_refresh_token,
     });
-  }
-
-  private async validateUser(loginDto: LoginDto) {
-    const user = await this.customerService.findOneByEmail(loginDto.email);
-
-    if (
-      !user ||
-      !(await bcrypt.compare(loginDto.password, user.hashed_password))
-    ) {
-      throw new UnauthorizedException('Email yoki password XATO !!!');
-    }
-
-    return user;
   }
 }
