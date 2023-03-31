@@ -1,4 +1,4 @@
 export class UpdateCountryDto {
-  name?: string;
+  // name?: string;
 	
 }

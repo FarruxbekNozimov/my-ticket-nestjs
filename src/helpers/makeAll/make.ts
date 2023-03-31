@@ -194,7 +194,11 @@ makeFiles(
     hashed_password: ['string', '{ type: DataType.STRING }'],
     email: ['string', '{ type: DataType.STRING }'],
     birth_date: ['string', '{ type: DataType.STRING }'],
-    gender: ['string', '{ type: DataType.STRING }'],
+    gender_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Gender', column: 'gender' },
+    ],
     lang_id: [
       'number',
       '{ type: DataType.INTEGER }',
@@ -207,6 +211,7 @@ makeFiles(
     CustomerAddress: 'customer_address',
     Cart: 'cart',
   },
+  { name: 'string', password: 'string', email: 'string' },
 );
 
 // // VENUE
@@ -279,27 +284,35 @@ makeFiles(
 //   { Seat: 'seat' },
 // );
 
-// // SEAT
-// makeFiles(
-//   'seat',
-//   'Seat',
-//   {
-//     sector: ['number', '{ type: DataType.INTEGER }'],
-//     row_number: ['number', '{ type: DataType.INTEGER }'],
-//     venue_id: [
-//       'number',
-//       '{ type: DataType.INTEGER }',
-//       { name: 'Venue', column: 'venue' },
-//     ],
-//     seat_type_id: [
-//       'number',
-//       '{ type: DataType.INTEGER }',
-//       { name: 'SeatType', column: 'seat_type' },
-//     ],
-//     location_in_schema: ['string', '{ type: DataType.STRING }'],
-//   },
-//   { Ticket: 'ticket' },
-// );
+// SEAT
+makeFiles(
+  'seat',
+  'Seat',
+  {
+    sector_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Sector', column: 'sector' },
+    ],
+    row_number_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'RowNumber', column: 'row_number' },
+    ],
+    venue_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'Venue', column: 'venue' },
+    ],
+    seat_type_id: [
+      'number',
+      '{ type: DataType.INTEGER }',
+      { name: 'SeatType', column: 'seat_type' },
+    ],
+    location_in_schema: ['string', '{ type: DataType.STRING }'],
+  },
+  { Ticket: 'ticket' },
+);
 
 // // TICKET
 // makeFiles(
@@ -479,8 +492,21 @@ makeFiles(
 //   'HumanCategory',
 //   {
 //     name: ['string', '{ type: DataType.STRING }'],
-//     start_age: ['number', '{ type: DataType.INTEGER }'],
-//     finish_age: ['number', '{ type: DataType.INTEGER }'],
+//     start_age_id: [
+//       'number',
+//       '{ type: DataType.INTEGER }',
+//       { name: 'StartAge', column: 'start_age' },
+//     ],
+//     finish_age_id: [
+//       'number',
+//       '{ type: DataType.INTEGER }',
+//       { name: 'FinishAge', column: 'finish_age' },
+//     ],
+//     gender_id: [
+//       'number',
+//       '{ type: DataType.INTEGER }',
+//       { name: 'Gender', column: 'gender' },
+//     ],
 //   },
 //   { Event: 'event' },
 // );
@@ -536,7 +562,11 @@ makeFiles(
 //   ],
 //   street: ['string', '{ type: DataType.STRING }'],
 //   house: ['string', '{ type: DataType.STRING }'],
-//   flat: ['number', '{ type: DataType.INTEGER }'],
+//   flat_id: [
+//     'number',
+//     '{ type: DataType.INTEGER }',
+//     { name: 'Flat', column: 'flat' },
+//   ],
 //   location: ['string', '{ type: DataType.STRING }'],
 //   post_index: ['string', '{ type: DataType.STRING }'],
 //   info: ['string', '{ type: DataType.STRING }'],
@@ -637,14 +667,13 @@ makeFiles(
 
 // // ROW NUMBER
 // makeFiles(
-//   'number-row',
+//   'row-number',
 //   'RowNumber',
 //   {
 //     rowNumber: ['number', '{ type: DataType.INTEGER }'],
 //   },
 //   { Seat: 'seat' },
 // );
-
 
 // // SECTOR
 // makeFiles(

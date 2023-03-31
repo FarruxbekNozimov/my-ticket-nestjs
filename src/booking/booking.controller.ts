@@ -19,25 +19,25 @@ export class BookingController {
 
   @ApiOperation({ summary: 'Create a booking' })
   @Post()
-  createComfort(@Body() createBookingDto: CreateBookingDto) {
+  create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingService.create(createBookingDto);
   }
 
   @ApiOperation({ summary: 'Get all booking' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.bookingService.findAll();
   }
 
   @ApiOperation({ summary: 'Get booking' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.bookingService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update booking' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateBookingDto: UpdateBookingDto,
   ) {
@@ -46,7 +46,7 @@ export class BookingController {
 
   @ApiOperation({ summary: 'Delete booking' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.bookingService.delete(id);
   }
 }

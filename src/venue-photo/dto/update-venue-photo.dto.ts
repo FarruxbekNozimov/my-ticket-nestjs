@@ -1,5 +1,5 @@
 export class UpdateVenuePhotoDto {
-  venue_id?: number;
+  // venue_id?: number;
 	url?: string;
 	
 }

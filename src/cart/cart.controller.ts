@@ -19,25 +19,25 @@ export class CartController {
 
   @ApiOperation({ summary: 'Create a cart' })
   @Post()
-  createComfort(@Body() createCartDto: CreateCartDto) {
+  create(@Body() createCartDto: CreateCartDto) {
     return this.cartService.create(createCartDto);
   }
 
   @ApiOperation({ summary: 'Get all cart' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.cartService.findAll();
   }
 
   @ApiOperation({ summary: 'Get cart' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.cartService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update cart' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateCartDto: UpdateCartDto,
   ) {
@@ -46,7 +46,7 @@ export class CartController {
 
   @ApiOperation({ summary: 'Delete cart' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.cartService.delete(id);
   }
 }

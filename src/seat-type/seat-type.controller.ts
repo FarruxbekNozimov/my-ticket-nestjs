@@ -19,25 +19,25 @@ export class SeatTypeController {
 
   @ApiOperation({ summary: 'Create a seatType' })
   @Post()
-  createComfort(@Body() createSeatTypeDto: CreateSeatTypeDto) {
+  create(@Body() createSeatTypeDto: CreateSeatTypeDto) {
     return this.seatTypeService.create(createSeatTypeDto);
   }
 
   @ApiOperation({ summary: 'Get all seatType' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.seatTypeService.findAll();
   }
 
   @ApiOperation({ summary: 'Get seatType' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.seatTypeService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update seatType' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateSeatTypeDto: UpdateSeatTypeDto,
   ) {
@@ -46,7 +46,7 @@ export class SeatTypeController {
 
   @ApiOperation({ summary: 'Delete seatType' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.seatTypeService.delete(id);
   }
 }

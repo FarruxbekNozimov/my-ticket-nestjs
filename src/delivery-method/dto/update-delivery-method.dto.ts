@@ -1,4 +1,4 @@
 export class UpdateDeliveryMethodDto {
-  name?: string;
+  // name?: string;
 	
 }

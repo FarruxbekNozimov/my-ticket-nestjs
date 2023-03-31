@@ -19,25 +19,25 @@ export class EventTypeController {
 
   @ApiOperation({ summary: 'Create a eventType' })
   @Post()
-  createComfort(@Body() createEventTypeDto: CreateEventTypeDto) {
+  create(@Body() createEventTypeDto: CreateEventTypeDto) {
     return this.eventTypeService.create(createEventTypeDto);
   }
 
   @ApiOperation({ summary: 'Get all eventType' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.eventTypeService.findAll();
   }
 
   @ApiOperation({ summary: 'Get eventType' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.eventTypeService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update eventType' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateEventTypeDto: UpdateEventTypeDto,
   ) {
@@ -46,7 +46,7 @@ export class EventTypeController {
 
   @ApiOperation({ summary: 'Delete eventType' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.eventTypeService.delete(id);
   }
 }

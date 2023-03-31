@@ -11,16 +11,15 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-user.dto';
 import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { MailService } from '../mail/mail.service';
 import { CustomerService } from '../customer/customer.service';
 import { CreateCustomerDto } from '../customer/dto/create-customer.dto';
+import { Customer } from '../customer/models/customer.model';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly customerService: CustomerService,
     private readonly jwtService: JwtService,
-    private readonly mailService: MailService,
   ) {}
 
   async registration(userDto: CreateCustomerDto, res: Response) {
@@ -106,12 +105,8 @@ export class AuthService {
   //   return response;
   // }
 
-  private async getToken(user: User) {
-    const payload = {
-      id: user.id,
-      is_active: user.is_active,
-      is_owner: user.is_owner,
-    };
+  private async getToken(user: Customer) {
+    const payload = { id: user.id };
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: process.env.REFRESH_TOKEN_KEY,
@@ -131,7 +126,7 @@ export class AuthService {
     if (user_id != decodedToken['id']) {
       throw new BadRequestException('user not found');
     }
-    const user = await this.customerService.getUserById(user_id);
+    const user = await this.customerService.findOne(user_id);
     if (!user || !user.hashed_password) {
       throw new BadRequestException('user not found');
     }
@@ -141,13 +136,13 @@ export class AuthService {
 
     const hashed_refresh_token = await bcrypt.hash(tokens.refresh_token, 7);
 
-    const updatedUser = await this.customerService.updateUser(user.id, {
+    const updatedUser = await this.customerService.update(user.id, {
       hashed_refresh_token: hashed_refresh_token,
     });
   }
 
   private async validateUser(loginDto: LoginDto) {
-    const user = await this.customerService.getUserByEmail(loginDto.email);
+    const user = await this.customerService.findOneByEmail(loginDto.email);
 
     if (
       !user ||

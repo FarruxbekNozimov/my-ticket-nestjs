@@ -1,27 +1,27 @@
 import { Controller, Post, Body, HttpCode, Res, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-user.dto';
-import { CreateUserDto } from '../users/dto/create-user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CookieGetter } from '../decorators/cookieGetter.decorator';
+import { CreateCustomerDto } from "../customer/dto/create-customer.dto";
 
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Login User' })
-  @HttpCode(200)
-  @Post('login')
-  login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
-    return this.authService.login(loginDto, res);
-  }
+  // @ApiOperation({ summary: 'Login User' })
+  // @HttpCode(200)
+  // @Post('login')
+  // login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+  //   return this.authService.login(loginDto, res);
+  // }
 
   @ApiOperation({ summary: 'Register User' })
   @Post('register')
   registration(
-    @Body() createUserDto: CreateUserDto,
+    @Body() createUserDto: CreateCustomerDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     return this.authService.registration(createUserDto, res);

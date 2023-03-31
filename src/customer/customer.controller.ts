@@ -15,29 +15,29 @@ import { CustomerService } from './customer.service';
 @ApiTags('Customer')
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+  constructor(private readonly customerService: CustomerService) { }
 
   @ApiOperation({ summary: 'Create a customer' })
   @Post()
-  createComfort(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customerService.create(createCustomerDto);
+  create(@Body() createCustomerDto: CreateCustomerDto, hashed_password: string) {
+    return this.customerService.create(createCustomerDto, hashed_password);
   }
 
   @ApiOperation({ summary: 'Get all customer' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.customerService.findAll();
   }
 
   @ApiOperation({ summary: 'Get customer' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.customerService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update customer' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
@@ -46,7 +46,7 @@ export class CustomerController {
 
   @ApiOperation({ summary: 'Delete customer' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.customerService.delete(id);
   }
 }

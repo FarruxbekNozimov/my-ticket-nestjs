@@ -1,5 +1,5 @@
 export class UpdateCustomerCardDto {
-  customer_id?: number;
+  // customer_id?: number;
 	name?: string;
 	phone?: string;
 	number?: string;

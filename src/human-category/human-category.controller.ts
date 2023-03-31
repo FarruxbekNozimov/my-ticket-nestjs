@@ -19,25 +19,25 @@ export class HumanCategoryController {
 
   @ApiOperation({ summary: 'Create a humanCategory' })
   @Post()
-  createComfort(@Body() createHumanCategoryDto: CreateHumanCategoryDto) {
+  create(@Body() createHumanCategoryDto: CreateHumanCategoryDto) {
     return this.humanCategoryService.create(createHumanCategoryDto);
   }
 
   @ApiOperation({ summary: 'Get all humanCategory' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.humanCategoryService.findAll();
   }
 
   @ApiOperation({ summary: 'Get humanCategory' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.humanCategoryService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update humanCategory' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateHumanCategoryDto: UpdateHumanCategoryDto,
   ) {
@@ -46,7 +46,7 @@ export class HumanCategoryController {
 
   @ApiOperation({ summary: 'Delete humanCategory' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.humanCategoryService.delete(id);
   }
 }

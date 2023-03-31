@@ -19,25 +19,25 @@ export class VenuePhotoController {
 
   @ApiOperation({ summary: 'Create a venuePhoto' })
   @Post()
-  createComfort(@Body() createVenuePhotoDto: CreateVenuePhotoDto) {
+  create(@Body() createVenuePhotoDto: CreateVenuePhotoDto) {
     return this.venuePhotoService.create(createVenuePhotoDto);
   }
 
   @ApiOperation({ summary: 'Get all venuePhoto' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.venuePhotoService.findAll();
   }
 
   @ApiOperation({ summary: 'Get venuePhoto' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.venuePhotoService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update venuePhoto' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateVenuePhotoDto: UpdateVenuePhotoDto,
   ) {
@@ -46,7 +46,7 @@ export class VenuePhotoController {
 
   @ApiOperation({ summary: 'Delete venuePhoto' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.venuePhotoService.delete(id);
   }
 }

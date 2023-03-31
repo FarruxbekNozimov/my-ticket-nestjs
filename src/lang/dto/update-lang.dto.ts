@@ -1,4 +1,4 @@
 export class UpdateLangDto {
-  name?: string;
+  // name?: string;
 	
 }

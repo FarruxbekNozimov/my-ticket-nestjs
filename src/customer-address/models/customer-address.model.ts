@@ -11,6 +11,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Flat } from "../../flat/models/flat.model";
 
 interface CustomerAddressAttr {
   customer_id:number
@@ -64,9 +65,12 @@ export class CustomerAddress extends Model<CustomerAddress, CustomerAddressAttr>
 
 	@Column({ type: DataType.STRING })
 	house:string;
-
+	
+	@ForeignKey(() => Flat)
 	@Column({ type: DataType.INTEGER })
-	flat:number;
+	flat_id: number;
+	@BelongsTo(() => Flat)
+	flat: Flat[];
 
 	@Column({ type: DataType.STRING })
 	location:string;

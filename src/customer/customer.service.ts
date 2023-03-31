@@ -6,10 +6,10 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Injectable()
 export class CustomerService {
-  constructor(@InjectModel(Customer) private customerRepo: typeof Customer) {}
+  constructor(@InjectModel(Customer) private customerRepo: typeof Customer) { }
 
-  async create(createCustomerDto: CreateCustomerDto) {
-    const res = await this.customerRepo.create(createCustomerDto);
+  async create(createCustomerDto: CreateCustomerDto, hashed_password:string) {
+    const res = await this.customerRepo.create({...createCustomerDto, hashed_password});
     return res;
   }
 
@@ -19,6 +19,10 @@ export class CustomerService {
 
   async findOne(id: number) {
     return await this.customerRepo.findByPk(id);
+  }
+
+  async findOneByEmail(email: string) {
+    return await this.customerRepo.findOne({ where: { email } });
   }
 
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {

@@ -6,7 +6,7 @@ export class CreateCustomerAddressDto {
 	district_id: number;
 	street: string;
 	house: string;
-	flat: number;
+	flat_id: number;
 	location: string;
 	post_index: string;
 	info: string;

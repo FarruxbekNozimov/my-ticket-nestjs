@@ -1,4 +1,4 @@
 export class UpdateSeatTypeDto {
-  name?: string;
+  // name?: string;
 	
 }

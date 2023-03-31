@@ -19,25 +19,25 @@ export class DiscountCouponController {
 
   @ApiOperation({ summary: 'Create a discountCoupon' })
   @Post()
-  createComfort(@Body() createDiscountCouponDto: CreateDiscountCouponDto) {
+  create(@Body() createDiscountCouponDto: CreateDiscountCouponDto) {
     return this.discountCouponService.create(createDiscountCouponDto);
   }
 
   @ApiOperation({ summary: 'Get all discountCoupon' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.discountCouponService.findAll();
   }
 
   @ApiOperation({ summary: 'Get discountCoupon' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.discountCouponService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update discountCoupon' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateDiscountCouponDto: UpdateDiscountCouponDto,
   ) {
@@ -46,7 +46,7 @@ export class DiscountCouponController {
 
   @ApiOperation({ summary: 'Delete discountCoupon' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.discountCouponService.delete(id);
   }
 }

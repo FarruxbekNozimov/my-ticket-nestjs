@@ -1,4 +1,4 @@
 export class UpdateDiscountCouponDto {
-  name?: string;
+  // name?: string;
 	
 }

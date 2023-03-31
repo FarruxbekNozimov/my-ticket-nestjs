@@ -19,25 +19,25 @@ export class DistrictController {
 
   @ApiOperation({ summary: 'Create a district' })
   @Post()
-  createComfort(@Body() createDistrictDto: CreateDistrictDto) {
+  create(@Body() createDistrictDto: CreateDistrictDto) {
     return this.districtService.create(createDistrictDto);
   }
 
   @ApiOperation({ summary: 'Get all district' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.districtService.findAll();
   }
 
   @ApiOperation({ summary: 'Get district' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.districtService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update district' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateDistrictDto: UpdateDistrictDto,
   ) {
@@ -46,7 +46,7 @@ export class DistrictController {
 
   @ApiOperation({ summary: 'Delete district' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.districtService.delete(id);
   }
 }

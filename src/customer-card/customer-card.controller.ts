@@ -19,25 +19,25 @@ export class CustomerCardController {
 
   @ApiOperation({ summary: 'Create a customerCard' })
   @Post()
-  createComfort(@Body() createCustomerCardDto: CreateCustomerCardDto) {
+  create(@Body() createCustomerCardDto: CreateCustomerCardDto) {
     return this.customerCardService.create(createCustomerCardDto);
   }
 
   @ApiOperation({ summary: 'Get all customerCard' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.customerCardService.findAll();
   }
 
   @ApiOperation({ summary: 'Get customerCard' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.customerCardService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update customerCard' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateCustomerCardDto: UpdateCustomerCardDto,
   ) {
@@ -46,7 +46,7 @@ export class CustomerCardController {
 
   @ApiOperation({ summary: 'Delete customerCard' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.customerCardService.delete(id);
   }
 }

@@ -49,6 +49,19 @@ import { VenueTypeModule } from './venue-type/venue-type.module';
 import { VenueModule } from './venue/venue.module';
 import { TicketType } from './ticket-type/models/ticket-type.model';
 import { TicketTypeModule } from './ticket-type/ticket-type.module';
+import { AuthModule } from './auth/auth.module';
+import { FinishAge } from './finish-age/models/finish-age.model';
+import { Flat } from './flat/models/flat.model';
+import { Gender } from './gender/models/gender.model';
+import { Sector } from './sector/models/sector.model';
+import { StartAge } from './start-age/models/start-age.model';
+import { RowNumber } from './row-number/models/row-number.model';
+import { RowNumberModule } from './row-number/row-number.module';
+import { FinishAgeModule } from './finish-age/finish-age.module';
+import { FlatModule } from './flat/flat.module';
+import { GenderModule } from './gender/gender.module';
+import { SectorModule } from './sector/sector.module';
+import { StartAgeModule } from './start-age/start-age.module';
 
 @Module({
   imports: [
@@ -87,7 +100,13 @@ import { TicketTypeModule } from './ticket-type/ticket-type.module';
         Venue,
         VenuePhoto,
         VenueType,
-        TicketType
+        TicketType,
+        FinishAge,
+        Flat,
+        Gender,
+        RowNumber,
+        Sector,
+        StartAge,
       ],
       autoLoadModels: true,
       logging: false,
@@ -116,10 +135,16 @@ import { TicketTypeModule } from './ticket-type/ticket-type.module';
     VenueModule,
     VenuePhotoModule,
     VenueTypeModule,
-    TicketTypeModule
-
+    TicketTypeModule,
+    AuthModule,
+    RowNumberModule,
+    FinishAgeModule,
+    FlatModule,
+    GenderModule,
+    SectorModule,
+    StartAgeModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

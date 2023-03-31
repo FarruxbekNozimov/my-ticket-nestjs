@@ -1,4 +1,4 @@
 export class UpdateStatusDto {
-  name?: string;
+  // name?: string;
 	
 }

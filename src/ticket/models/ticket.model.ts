@@ -11,6 +11,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { TicketType } from '../../ticket-type/models/ticket-type.model';
 
 interface TicketAttr {
   event_id:number
@@ -51,8 +52,11 @@ export class Ticket extends Model<Ticket, TicketAttr> {
 	@BelongsTo(() => Status)
 	status: Status[];
 
+	@ForeignKey(() => TicketType)
 	@Column({ type: DataType.INTEGER })
-	ticket_type:number;
+	ticket_type_id: number;
+	@BelongsTo(() => TicketType)
+	ticket_type: TicketType[];
 
 	@HasMany(() => Cart)
 	cart: Cart[];

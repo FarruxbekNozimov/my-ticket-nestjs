@@ -19,25 +19,25 @@ export class TicketTypeController {
 
   @ApiOperation({ summary: 'Create a ticketType' })
   @Post()
-  createComfort(@Body() createTicketTypeDto: CreateTicketTypeDto) {
+  create(@Body() createTicketTypeDto: CreateTicketTypeDto) {
     return this.ticketTypeService.create(createTicketTypeDto);
   }
 
   @ApiOperation({ summary: 'Get all ticketType' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.ticketTypeService.findAll();
   }
 
   @ApiOperation({ summary: 'Get ticketType' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.ticketTypeService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update ticketType' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateTicketTypeDto: UpdateTicketTypeDto,
   ) {
@@ -46,7 +46,7 @@ export class TicketTypeController {
 
   @ApiOperation({ summary: 'Delete ticketType' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.ticketTypeService.delete(id);
   }
 }

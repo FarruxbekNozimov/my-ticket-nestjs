@@ -1,5 +1,5 @@
 export class UpdateVenueDto {
-  name?: string;
+  // name?: string;
 	address?: string;
 	location?: string;
 	site?: string;

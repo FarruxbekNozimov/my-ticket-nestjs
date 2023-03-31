@@ -19,25 +19,25 @@ export class AdminController {
 
   @ApiOperation({ summary: 'Create a admin' })
   @Post()
-  createComfort(@Body() createAdminDto: CreateAdminDto) {
+  create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
   }
 
   @ApiOperation({ summary: 'Get all admin' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.adminService.findAll();
   }
 
   @ApiOperation({ summary: 'Get admin' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.adminService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update admin' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateAdminDto: UpdateAdminDto,
   ) {
@@ -46,7 +46,7 @@ export class AdminController {
 
   @ApiOperation({ summary: 'Delete admin' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.adminService.delete(id);
   }
 }

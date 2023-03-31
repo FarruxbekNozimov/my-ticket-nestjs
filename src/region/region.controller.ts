@@ -19,25 +19,25 @@ export class RegionController {
 
   @ApiOperation({ summary: 'Create a region' })
   @Post()
-  createComfort(@Body() createRegionDto: CreateRegionDto) {
+  create(@Body() createRegionDto: CreateRegionDto) {
     return this.regionService.create(createRegionDto);
   }
 
   @ApiOperation({ summary: 'Get all region' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.regionService.findAll();
   }
 
   @ApiOperation({ summary: 'Get region' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.regionService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update region' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateRegionDto: UpdateRegionDto,
   ) {
@@ -46,7 +46,7 @@ export class RegionController {
 
   @ApiOperation({ summary: 'Delete region' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.regionService.delete(id);
   }
 }

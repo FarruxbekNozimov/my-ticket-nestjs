@@ -19,25 +19,25 @@ export class DeliveryMethodController {
 
   @ApiOperation({ summary: 'Create a deliveryMethod' })
   @Post()
-  createComfort(@Body() createDeliveryMethodDto: CreateDeliveryMethodDto) {
+  create(@Body() createDeliveryMethodDto: CreateDeliveryMethodDto) {
     return this.deliveryMethodService.create(createDeliveryMethodDto);
   }
 
   @ApiOperation({ summary: 'Get all deliveryMethod' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.deliveryMethodService.findAll();
   }
 
   @ApiOperation({ summary: 'Get deliveryMethod' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.deliveryMethodService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update deliveryMethod' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateDeliveryMethodDto: UpdateDeliveryMethodDto,
   ) {
@@ -46,7 +46,7 @@ export class DeliveryMethodController {
 
   @ApiOperation({ summary: 'Delete deliveryMethod' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.deliveryMethodService.delete(id);
   }
 }

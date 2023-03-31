@@ -4,6 +4,6 @@ export class UpdateTicketDto {
 	price?: number;
 	service_free?: number;
 	status_id?: number;
-	ticket_type?: number;
+	ticket_type_id?: number;
 	
 }

@@ -19,25 +19,25 @@ export class PaymentMethodController {
 
   @ApiOperation({ summary: 'Create a paymentMethod' })
   @Post()
-  createComfort(@Body() createPaymentMethodDto: CreatePaymentMethodDto) {
+  create(@Body() createPaymentMethodDto: CreatePaymentMethodDto) {
     return this.paymentMethodService.create(createPaymentMethodDto);
   }
 
   @ApiOperation({ summary: 'Get all paymentMethod' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.paymentMethodService.findAll();
   }
 
   @ApiOperation({ summary: 'Get paymentMethod' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.paymentMethodService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update paymentMethod' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updatePaymentMethodDto: UpdatePaymentMethodDto,
   ) {
@@ -46,7 +46,7 @@ export class PaymentMethodController {
 
   @ApiOperation({ summary: 'Delete paymentMethod' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.paymentMethodService.delete(id);
   }
 }

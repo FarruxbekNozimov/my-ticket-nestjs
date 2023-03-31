@@ -19,25 +19,25 @@ export class CustomerAddressController {
 
   @ApiOperation({ summary: 'Create a customerAddress' })
   @Post()
-  createComfort(@Body() createCustomerAddressDto: CreateCustomerAddressDto) {
+  create(@Body() createCustomerAddressDto: CreateCustomerAddressDto) {
     return this.customerAddressService.create(createCustomerAddressDto);
   }
 
   @ApiOperation({ summary: 'Get all customerAddress' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.customerAddressService.findAll();
   }
 
   @ApiOperation({ summary: 'Get customerAddress' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.customerAddressService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update customerAddress' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateCustomerAddressDto: UpdateCustomerAddressDto,
   ) {
@@ -46,7 +46,7 @@ export class CustomerAddressController {
 
   @ApiOperation({ summary: 'Delete customerAddress' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.customerAddressService.delete(id);
   }
 }

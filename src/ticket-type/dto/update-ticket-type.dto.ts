@@ -1,5 +1,5 @@
 export class UpdateTicketTypeDto {
-  name?: string;
+  // name?: string;
 	color?: string;
 	
 }

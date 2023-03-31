@@ -1,4 +1,4 @@
 export class UpdateDistrictDto {
-  name?: string;
+  // name?: string;
 	
 }

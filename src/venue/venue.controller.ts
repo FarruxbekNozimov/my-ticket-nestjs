@@ -19,25 +19,25 @@ export class VenueController {
 
   @ApiOperation({ summary: 'Create a venue' })
   @Post()
-  createComfort(@Body() createVenueDto: CreateVenueDto) {
+  create(@Body() createVenueDto: CreateVenueDto) {
     return this.venueService.create(createVenueDto);
   }
 
   @ApiOperation({ summary: 'Get all venue' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.venueService.findAll();
   }
 
   @ApiOperation({ summary: 'Get venue' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.venueService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update venue' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateVenueDto: UpdateVenueDto,
   ) {
@@ -46,7 +46,7 @@ export class VenueController {
 
   @ApiOperation({ summary: 'Delete venue' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.venueService.delete(id);
   }
 }

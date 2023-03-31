@@ -1,4 +1,4 @@
 export class UpdatePaymentMethodDto {
-  name?: string;
+  // name?: string;
 	
 }

@@ -19,25 +19,25 @@ export class LangController {
 
   @ApiOperation({ summary: 'Create a lang' })
   @Post()
-  createComfort(@Body() createLangDto: CreateLangDto) {
+  create(@Body() createLangDto: CreateLangDto) {
     return this.langService.create(createLangDto);
   }
 
   @ApiOperation({ summary: 'Get all lang' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.langService.findAll();
   }
 
   @ApiOperation({ summary: 'Get lang' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.langService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update lang' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateLangDto: UpdateLangDto,
   ) {
@@ -46,7 +46,7 @@ export class LangController {
 
   @ApiOperation({ summary: 'Delete lang' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.langService.delete(id);
   }
 }

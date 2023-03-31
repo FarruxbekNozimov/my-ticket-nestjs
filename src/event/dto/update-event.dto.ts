@@ -1,5 +1,5 @@
 export class UpdateEventDto {
-  name?: string;
+  // name?: string;
 	photo?: string;
 	start_date?: Date;
 	start_time?: Date;

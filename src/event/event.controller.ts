@@ -19,25 +19,25 @@ export class EventController {
 
   @ApiOperation({ summary: 'Create a event' })
   @Post()
-  createComfort(@Body() createEventDto: CreateEventDto) {
+  create(@Body() createEventDto: CreateEventDto) {
     return this.eventService.create(createEventDto);
   }
 
   @ApiOperation({ summary: 'Get all event' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.eventService.findAll();
   }
 
   @ApiOperation({ summary: 'Get event' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.eventService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update event' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateEventDto: UpdateEventDto,
   ) {
@@ -46,7 +46,7 @@ export class EventController {
 
   @ApiOperation({ summary: 'Delete event' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.eventService.delete(id);
   }
 }

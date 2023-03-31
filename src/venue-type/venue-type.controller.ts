@@ -19,25 +19,25 @@ export class VenueTypeController {
 
   @ApiOperation({ summary: 'Create a venueType' })
   @Post()
-  createComfort(@Body() createVenueTypeDto: CreateVenueTypeDto) {
+  create(@Body() createVenueTypeDto: CreateVenueTypeDto) {
     return this.venueTypeService.create(createVenueTypeDto);
   }
 
   @ApiOperation({ summary: 'Get all venueType' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.venueTypeService.findAll();
   }
 
   @ApiOperation({ summary: 'Get venueType' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.venueTypeService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update venueType' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateVenueTypeDto: UpdateVenueTypeDto,
   ) {
@@ -46,7 +46,7 @@ export class VenueTypeController {
 
   @ApiOperation({ summary: 'Delete venueType' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.venueTypeService.delete(id);
   }
 }

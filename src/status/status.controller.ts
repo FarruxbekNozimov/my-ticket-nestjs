@@ -19,25 +19,25 @@ export class StatusController {
 
   @ApiOperation({ summary: 'Create a status' })
   @Post()
-  createComfort(@Body() createStatusDto: CreateStatusDto) {
+  create(@Body() createStatusDto: CreateStatusDto) {
     return this.statusService.create(createStatusDto);
   }
 
   @ApiOperation({ summary: 'Get all status' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.statusService.findAll();
   }
 
   @ApiOperation({ summary: 'Get status' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.statusService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update status' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateStatusDto: UpdateStatusDto,
   ) {
@@ -46,7 +46,7 @@ export class StatusController {
 
   @ApiOperation({ summary: 'Delete status' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.statusService.delete(id);
   }
 }

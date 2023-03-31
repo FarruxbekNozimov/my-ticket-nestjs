@@ -1,4 +1,7 @@
 import { Event } from '../../event/models/event.model';
+import { Gender } from '../../gender/models/gender.model';
+import { FinishAge } from '../../finish-age/models/finish-age.model';
+import { StartAge } from '../../start-age/models/start-age.model';
 import {
   BelongsTo,
   Column,
@@ -10,10 +13,10 @@ import {
 } from 'sequelize-typescript';
 
 interface HumanCategoryAttr {
-  name:string
-	start_age:number
-	finish_age:number
-	
+  name: string;
+  start_age_id: number;
+  finish_age_id: number;
+  gender_id: number;
 }
 
 @Table({ tableName: 'human-category' })
@@ -22,16 +25,26 @@ export class HumanCategory extends Model<HumanCategory, HumanCategoryAttr> {
   id: number;
 
   @Column({ type: DataType.STRING })
-	name:string;
+  name: string;
 
-	@Column({ type: DataType.INTEGER })
-	start_age:number;
+  @ForeignKey(() => StartAge)
+  @Column({ type: DataType.INTEGER })
+  start_age_id: number;
+  @BelongsTo(() => StartAge)
+  start_age: StartAge[];
 
-	@Column({ type: DataType.INTEGER })
-	finish_age:number;
+  @ForeignKey(() => FinishAge)
+  @Column({ type: DataType.INTEGER })
+  finish_age_id: number;
+  @BelongsTo(() => FinishAge)
+  finish_age: FinishAge[];
 
-	@HasMany(() => Event)
-	event: Event[];
+  @ForeignKey(() => Gender)
+  @Column({ type: DataType.INTEGER })
+  gender_id: number;
+  @BelongsTo(() => Gender)
+  gender: Gender[];
 
-	
+  @HasMany(() => Event)
+  event: Event[];
 }

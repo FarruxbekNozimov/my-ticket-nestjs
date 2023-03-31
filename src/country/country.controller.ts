@@ -19,25 +19,25 @@ export class CountryController {
 
   @ApiOperation({ summary: 'Create a country' })
   @Post()
-  createComfort(@Body() createCountryDto: CreateCountryDto) {
+  create(@Body() createCountryDto: CreateCountryDto) {
     return this.countryService.create(createCountryDto);
   }
 
   @ApiOperation({ summary: 'Get all country' })
   @Get()
-  getAllComforts() {
+  findAll() {
     return this.countryService.findAll();
   }
 
   @ApiOperation({ summary: 'Get country' })
   @Get(':id')
-  getComfortById(@Param('id') id: number) {
+  findOne(@Param('id') id: number) {
     return this.countryService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Update country' })
   @Put(':id')
-  async updateComfort(
+  async update(
     @Param('id') id: number,
     @Body() updateCountryDto: UpdateCountryDto,
   ) {
@@ -46,7 +46,7 @@ export class CountryController {
 
   @ApiOperation({ summary: 'Delete country' })
   @Delete(':id')
-  async deleteComfort(@Param('id') id: number): Promise<number> {
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.countryService.delete(id);
   }
 }
